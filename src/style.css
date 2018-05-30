@@ -1,0 +1,9 @@
+body {
+  background: linear-gradient(to right, red, blue);
+}
+.box-a {
+  background: aliceblue;
+}
+.box-b {
+  background: beige;
+}

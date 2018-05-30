@@ -1,23 +1,41 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-var ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    app: './src/index.js'
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
+  // devtool: 'inline-source-map',
+  // devServer: {
+  //   contentBase: './dist',
+  //   hot: true
+  // },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: ' Output Management'
+      title: ' Output Management',
+      template: './src/index.html'
     }),
-    new ManifestPlugin()
+    // new webpack.NamedModulesPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new ManifestPlugin(),
+    // new VueLoaderPlugin()
   ],
   output: {
     filename: '[name].bundle.js',
@@ -25,4 +43,5 @@ module.exports = {
     publicPath: '/'
   },
   mode: 'production'
+  // mode: 'development'
 };
